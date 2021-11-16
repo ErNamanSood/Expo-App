@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import React, { Component, useState } from 'react';
 import { StyleSheet, Text, View, Image, Button } from 'react-native';
+import ListViewPage from './src/tutorials/ListComponent';
 
 // export default function App() {
 //   return (
@@ -25,6 +26,12 @@ function HomeScreen({navigation}){
         ()=> navigation.push("Profile")
       }
       ></Button>
+      <Text style={styles.textStyle}>List Demo</Text>
+      <Button title="ListView Page"
+      onPress = {
+        ()=> navigation.push("List")
+      }
+      ></Button>
     </View>
   );
 }
@@ -45,6 +52,7 @@ export default function App(){
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} options={{title:"Home Screen"}}/>
         <Stack.Screen name="Profile" component={ProfileScreen}/>
+        <Stack.Screen name="List" component={ListViewPage}/>
       </Stack.Navigator>
     </NavigationContainer>
   )

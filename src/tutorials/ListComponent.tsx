@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 
 // Hard Coded Data Structure
 const covidData = [
@@ -34,16 +34,16 @@ const covidData = [
     },
 ];
 
-const ListItem = ({data}) => (
-    <View>
-        <Text>{data.state}</Text>
-        <Text>{data.confirmed}</Text>
+const Item = ( {itemData} ) => (
+    <View style={styles.item}>
+        <Text style={styles.title}>{itemData.state}</Text>
+        <Text style={styles.subTitle}>{itemData.confirmed}</Text>
     </View>
 );
 
 function ListViewPage(){
 
-    const renderItem = ({item}) => <ListItem data={item}/>
+    const renderItem = ({item}) => <Item itemData={item}/>
 
     return (
         <View>
@@ -52,5 +52,42 @@ function ListViewPage(){
     );
     
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    textStyle: {
+        fontSize: 24,
+        color: "#f00",
+        marginBottom: 12
+    },
+    myBackground: {
+        backgroundColor: '#fae',
+        fontSize: 24,
+        marginBottom: 20
+    },
+    image: {
+        width: 300,
+        height: 200,
+        marginBottom: 20
+      }, 
+      item:{
+        backgroundColor: "#fff",
+        padding: 16,
+        margin: 12
+      },
+      title:{
+        fontSize: 16,
+        color: "#f00"
+      },
+      subTitle:{
+        fontSize: 12,
+        color: "#f23"
+      }
+});
 
 export default ListViewPage;

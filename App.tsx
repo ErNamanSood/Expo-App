@@ -11,6 +11,9 @@ import SignInScreen from './src/screens/SignInScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 import { initializeApp } from 'firebase/app';
 import { firebaseCofig } from './src/helper/Constants';
+import DishesScreen from './src/screens/DishesScreen';
+import AppHomeScreen from './src/screens/HomeScreen';
+import { getAuth } from '@firebase/auth';
 
 // export default function App() {
 //   return (
@@ -143,6 +146,11 @@ export default function App(){
     async function showSplashScreen(){
       try{
         initializeApp(firebaseCofig);
+        // Check if the user is logged in or not
+        const auth = getAuth();
+        if(auth.currentUser != null){
+          console.log("user is logged in already");
+        }
         await new Promise(resolve => setTimeout(resolve, 2000));
       }catch(error){
         console.log("Something Went Wrong: "+error);
@@ -169,6 +177,8 @@ export default function App(){
       <Stack.Navigator initialRouteName="Signin">
         <Stack.Screen name="Signin" component={SignInScreen} options={{title:"Sign In"}}/>
         <Stack.Screen name="Register" component={RegisterScreen} options={{title:"Register"}}/>
+        <Stack.Screen name="Home" component={AppHomeScreen}/>
+        <Stack.Screen name="Dishes" component={DishesScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

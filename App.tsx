@@ -17,16 +17,9 @@ import { getAuth } from '@firebase/auth';
 import CounterComponent from './src/tutorials/CounterComponent';
 import { Appbar } from 'react-native-paper';
 import CartScreen from './src/screens/CartScreen';
+import LocationScreen from './src/screens/LocationScreen';
+import MapViewScreen from './src/screens/MapViewScreen';
 
-// export default function App() {
-//   return (
-//     <View style={styles.container}>
-//       <Text style={{backgroundColor: '#aed'}}>Welcome To My App!</Text>
-//       <Text style={styles.myBackground}>Proceed Further</Text>
-//       <Text style={styles.myBackground}>Proceed</Text>
-//     </View>
-//   );
-// }
 
 function HomeScreen({navigation}){
   return(
@@ -163,7 +156,7 @@ export default function App({navigation}){
 
   useEffect( ()=>{
 
-
+    
     // local function
     async function showSplashScreen(){
       try{
@@ -197,8 +190,10 @@ export default function App({navigation}){
   return(
       <NavigationContainer>
        {/* <Stack.Navigator initialRouteName="Signin" screenOptions={{headerShown: false}}> */}
-       <Stack.Navigator initialRouteName="Signin" >
+       <Stack.Navigator initialRouteName="Maps" >
        <Stack.Screen name="AppBar" component={MyAppBar}/>
+       <Stack.Screen name="Maps" component={MapViewScreen}/>
+       <Stack.Screen name="Location" component={LocationScreen}/>
         <Stack.Screen name="Signin" component={SignInScreen} options={{title:"Sign In"}}/>
         <Stack.Screen name="Register" component={RegisterScreen} options={{title:"Register"}}/>
         <Stack.Screen name="Home" component={AppHomeScreen} options={{

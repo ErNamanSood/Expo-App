@@ -6,6 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { doc, setDoc, deleteDoc, Timestamp } from "firebase/firestore"; 
 import { getAuth } from "firebase/auth";
 
+
 export default function DishesScreen({route, navigation}){
 
     const {name, docId} = route.params;
@@ -142,6 +143,6 @@ const styles = StyleSheet.create({
     },
     subTitle:{
       fontSize: 12,
-      color: "##055"
+      color: "#055"
     }
-  });
+});

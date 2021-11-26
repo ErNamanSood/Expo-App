@@ -14,6 +14,7 @@ import { firebaseCofig } from './src/helper/Constants';
 import DishesScreen from './src/screens/DishesScreen';
 import AppHomeScreen from './src/screens/HomeScreen';
 import { getAuth } from '@firebase/auth';
+import CounterComponent from './src/tutorials/CounterComponent';
 
 // export default function App() {
 //   return (
@@ -31,23 +32,17 @@ function HomeScreen({navigation}){
       <StatusBar style="auto"/>
       <Text style={styles.textStyle}>This is a Home Screen</Text>
       <Button title="Profile Page"
-      onPress = { 
-        // ()=> navigation.navigate("Profile")
+      onPress = {
         ()=> navigation.navigate("Profile")
       }
-      >
-      </Button>
+      ></Button>
 
       <Text style={styles.textStyle}>List Demo</Text>
-
-      {/* <Button title="ListView Page"  */}
-      <Button title="News Page" 
-      onPress = { 
+      <Button title="News Page"
+      onPress = {
         ()=> navigation.navigate("List")
       }
-      >
-      </Button>
-
+      ></Button>
     </View>
   );
 }
@@ -63,22 +58,17 @@ function ProfileScreen(){
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
-
 // export default function App(){
 //   return(
 //     <NavigationContainer>
 //       <Stack.Navigator>
 //         <Stack.Screen name="Home" component={HomeScreen} options={{title:"Home Screen"}}/>
 //         <Stack.Screen name="Profile" component={ProfileScreen}/>
-//         {/* <Stack.Screen name="List" component={ListViewPage}/> */}
-//         <Stack.Screen name="List" component={NewsPage}/>
+//         <Stack.Screen name="List" component={ListViewPage}/>
 //       </Stack.Navigator>
 //     </NavigationContainer>
 //   )
 // }
-
-// For Navigation inside the App
-// https://reactnavigation.org/docs
 
 function OldApp(){
   return(
@@ -86,7 +76,7 @@ function OldApp(){
       <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="Home" component={HomeScreen} options={{title:"Home Screen"}}/>
         <Drawer.Screen name="Profile" component={ProfileScreen}/>
-        {/* <Stack.Screen name="List" component={ListViewPage}/> */}
+        {/* <Drawer.Screen name="List" component={ListViewPage}/> */}
         <Drawer.Screen name="List" component={NewsPage}/>
       </Drawer.Navigator>
     </NavigationContainer>
@@ -107,12 +97,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  textStyle:{
+  textStyle: {
     fontSize: 24,
     color: "#f00",
     marginBottom: 12
   },
-  myBackground:{
+  myBackground: {
     backgroundColor: '#fae',
     fontSize: 24,
     marginBottom: 20
@@ -133,6 +123,7 @@ const styles = StyleSheet.create({
   },
   subTitle:{
     fontSize: 12,
+    color: "#f23"
   }
 });
 
@@ -179,8 +170,10 @@ export default function App(){
         <Stack.Screen name="Register" component={RegisterScreen} options={{title:"Register"}}/>
         <Stack.Screen name="Home" component={AppHomeScreen}/>
         <Stack.Screen name="Dishes" component={DishesScreen}/>
+        <Stack.Screen name="Counter" component={CounterComponent}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
 
 }
+

@@ -15,6 +15,8 @@ import DishesScreen from './src/screens/DishesScreen';
 import AppHomeScreen from './src/screens/HomeScreen';
 import { getAuth } from '@firebase/auth';
 import CounterComponent from './src/tutorials/CounterComponent';
+import { Appbar } from 'react-native-paper';
+import CartScreen from './src/screens/CartScreen';
 
 // export default function App() {
 //   return (
@@ -32,17 +34,23 @@ function HomeScreen({navigation}){
       <StatusBar style="auto"/>
       <Text style={styles.textStyle}>This is a Home Screen</Text>
       <Button title="Profile Page"
-      onPress = {
-        ()=> navigation.navigate("Profile")
+      onPress = { 
+        // ()=> navigation.navigate("Profile")
+        ()=> navigation.push("Profile")
       }
-      ></Button>
+      >
+      </Button>
 
       <Text style={styles.textStyle}>List Demo</Text>
-      <Button title="News Page"
-      onPress = {
-        ()=> navigation.navigate("List")
+
+      {/* <Button title="ListView Page"  */}
+      <Button title="News Page" 
+      onPress = { 
+        ()=> navigation.push("List")
       }
-      ></Button>
+      >
+      </Button>
+
     </View>
   );
 }
@@ -55,8 +63,12 @@ function ProfileScreen(){
   );
 }
 
+
+
+
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
+
 
 // export default function App(){
 //   return(
@@ -64,11 +76,15 @@ const Drawer = createDrawerNavigator();
 //       <Stack.Navigator>
 //         <Stack.Screen name="Home" component={HomeScreen} options={{title:"Home Screen"}}/>
 //         <Stack.Screen name="Profile" component={ProfileScreen}/>
-//         <Stack.Screen name="List" component={ListViewPage}/>
+//         {/* <Stack.Screen name="List" component={ListViewPage}/> */}
+//         <Stack.Screen name="List" component={NewsPage}/>
 //       </Stack.Navigator>
 //     </NavigationContainer>
 //   )
 // }
+
+// For Navigation inside the App
+// https://reactnavigation.org/docs
 
 function OldApp(){
   return(
@@ -76,7 +92,7 @@ function OldApp(){
       <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="Home" component={HomeScreen} options={{title:"Home Screen"}}/>
         <Drawer.Screen name="Profile" component={ProfileScreen}/>
-        {/* <Drawer.Screen name="List" component={ListViewPage}/> */}
+        {/* <Stack.Screen name="List" component={ListViewPage}/> */}
         <Drawer.Screen name="List" component={NewsPage}/>
       </Drawer.Navigator>
     </NavigationContainer>
@@ -97,12 +113,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  textStyle: {
+  textStyle:{
     fontSize: 24,
     color: "#f00",
     marginBottom: 12
   },
-  myBackground: {
+  myBackground:{
     backgroundColor: '#fae',
     fontSize: 24,
     marginBottom: 20
@@ -123,15 +139,30 @@ const styles = StyleSheet.create({
   },
   subTitle:{
     fontSize: 12,
-    color: "#f23"
   }
 });
 
-export default function App(){
+const MyAppBar = ({navigation}) => (
+  <Appbar>
+   <Appbar.Action
+     icon="bell"
+     onPress={() => console.log('Pressed archive')}
+    />
+    <Appbar.Action icon="mail" onPress={() => console.log('Pressed mail')} />
+    <Appbar.Action icon="label" onPress={() => console.log('Pressed label')} />
+    <Appbar.Action
+      icon="cart"
+      onPress={() => navigation.navigate("Home")}
+    />
+  </Appbar>
+);
+
+export default function App({navigation}){
 
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect( ()=>{
+
 
     // local function
     async function showSplashScreen(){
@@ -165,15 +196,28 @@ export default function App(){
 
   return(
       <NavigationContainer>
-      <Stack.Navigator initialRouteName="Signin">
+       {/* <Stack.Navigator initialRouteName="Signin" screenOptions={{headerShown: false}}> */}
+       <Stack.Navigator initialRouteName="Signin" >
+       <Stack.Screen name="AppBar" component={MyAppBar}/>
         <Stack.Screen name="Signin" component={SignInScreen} options={{title:"Sign In"}}/>
         <Stack.Screen name="Register" component={RegisterScreen} options={{title:"Register"}}/>
-        <Stack.Screen name="Home" component={AppHomeScreen}/>
+        <Stack.Screen name="Home" component={AppHomeScreen} options={{
+          title:"Home",
+          headerRight: ()=>(
+            // <Text>Cart</Text>
+            
+            <Appbar.Action
+              icon="cart"
+              onPress={() => navigation.navigate("Home")}
+            />
+
+          )
+          }}/>
         <Stack.Screen name="Dishes" component={DishesScreen}/>
+        <Stack.Screen name="Cart" component={CartScreen}/>
         <Stack.Screen name="Counter" component={CounterComponent}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
 
 }
-

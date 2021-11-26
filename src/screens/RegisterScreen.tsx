@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, getFirestore, setDoc } from '@firebase/firestore';
 
 
 export default function RegisterScreen({navigation}) {
@@ -13,15 +14,25 @@ export default function RegisterScreen({navigation}) {
     function registerUser(){
         console.log("Data On Button Click: "+name+" "+email+" "+password);
         const auth = getAuth();
+        const db = getFirestore();
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
-            console.log("New User Created: "+user.uid);
-            // Firestore :)
+            console.log("News User Created: "+user.uid);
+            
+            const documentToInsert = {
+                name: name,
+                email: email,
+                uid: user.uid
+            };
+
+            setDoc(doc(db, "users",  user.uid), documentToInsert);
+
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
+            // ..
         });
     }
 
@@ -91,4 +102,3 @@ const styles = StyleSheet.create({
         color: "blue"
     }
 });
-  
